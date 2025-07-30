@@ -1,0 +1,15 @@
+<!-- src/app/pages/attractions/attractions.component.html -->
+<div class="attraction-list">
+  <div class="attraction" *ngFor="let a of displayedAttractions">
+    <img *ngIf="a.images.length" [src]="a.images[0].src" alt="景點圖片">
+    <h3>{{ a.name }}</h3>
+    <p>{{ a.address }}</p>
+    <p>{{ a.tel }}</p>
+  </div>
+</div>
+
+<div class="pagination-controls">
+  <button (click)="prevPage()">上一頁</button>
+  <span>第 {{ currentPage }} 頁</span>
+  <button (click)="nextPage()">下一頁</button>
+</div>
