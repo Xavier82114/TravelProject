@@ -1,4 +1,4 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+/* To learn more about this file skipLibCheck: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -21,7 +21,9 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "types": [], // ✅ 最關鍵！完全禁止自動導入 @types/*，包括 node
+    "skipLibCheck": true // ✅ 跳過第三方型別檢查（讓你繞過那些錯誤）
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
