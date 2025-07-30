@@ -23,7 +23,7 @@ export class ListService {
   constructor(private http: HttpClient) {}
 
   getAttractions(): Observable<any> {
-    return this.http.get<any>('/assets/attractions.json');
+    return this.http.get<any>('assets/attractions.json');
     // return this.http.get<any>(this.API_URL);
     // return this.http.get('/open-api/zh-tw/Attractions/All', {
     //   headers: {
