@@ -3,24 +3,59 @@
 
 <table class="data-table">
   <tr>
+    <th><input type="checkbox" [checked]="isAllSelected()" (change)="selectAll()" /></th>
     <th>#</th>
     <th>景點名稱</th>
-    <th>地址</th>
     <th>電話</th>
     <th>收藏</th>
+    <th>編輯</th>
   </tr>
   <tr *ngFor="let a of displayedAttractions; let i = index">
-    <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-    <td>{{ a.name }}</td>
-    <td>{{ a.address }}</td>
-    <td>{{ a.tel }}</td>
     <td>
-      <button (click)="toggleFavorite(a.id)">
+        <input type="checkbox" [checked]="selectedIds.has(a.id)" (change)="toggleSelect(a.id)" />
+    </td>
+    <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+    <td>
+        <ng-container *ngIf="editingId === a.id; else nameDisplay">
+        <input [(ngModel)]="a.name" required />
+        <div *ngIf="!a.name">⚠️ 必填</div>
+        </ng-container>
+        <ng-template #nameDisplay>
+        {{ a.name }}
+        </ng-template>
+    </td>
+    <td>
+        <ng-container *ngIf="editingId === a.id; else telDisplay">
+        <input [(ngModel)]="a.tel" (ngModelChange)="validateTel(a)" />
+        <div *ngIf="a.invalidTel">⚠️ 電話不可含中文</div>
+        </ng-container>
+        <ng-template #telDisplay>
+        {{ a.tel }}
+        </ng-template>
+    </td>
+    <td>
+        <button (click)="toggleFavorite(a.id)">
         {{ favoriteIds.has(a.id) ? '❤️' : '🤍' }}
-      </button>
+        </button>
+    </td>
+    <td>
+        <ng-container *ngIf="editingId === a.id; else editMode">
+            <button
+                (click)="saveAttraction(a)"
+                [disabled]="!a.name || a.invalidTel">
+                💾 儲存
+            </button>
+        </ng-container>
+        <ng-template #editMode>
+            <button (click)="editingId = a.id">✏️ 編輯</button>
+        </ng-template>
     </td>
   </tr>
 </table>
+
+<button (click)="removeSelected()" [disabled]="selectedIds.size === 0" class="btn btn-danger">
+  🗑 刪除選取項目
+</button>
 
 <ul class="page-controls">
   <li>目前 <span>第 {{ currentPage }} 頁</span></li>
