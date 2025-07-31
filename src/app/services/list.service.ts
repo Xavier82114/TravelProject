@@ -9,6 +9,7 @@ export interface Attraction {
   address: string;
   tel: string;
   images: { src: string }[];
+  category: {id:number,name: string}[];
 }
 
 @Injectable({

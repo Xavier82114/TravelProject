@@ -1,15 +1,24 @@
-<!-- src/app/pages/attractions/attractions.component.html -->
-<div class="attraction-list">
-  <div class="attraction" *ngFor="let a of displayedAttractions">
-    <img *ngIf="a.images.length" [src]="a.images[0].src" alt="景點圖片">
-    <h3>{{ a.name }}</h3>
-    <p>{{ a.address }}</p>
-    <p>{{ a.tel }}</p>
-  </div>
-</div>
+<select [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+  <option *ngFor="let c of categoryList" [ngValue]="c.id">{{ c.name }}</option>
+</select>
 
-<div class="pagination-controls">
-  <button (click)="prevPage()">上一頁</button>
-  <span>第 {{ currentPage }} 頁</span>
-  <button (click)="nextPage()">下一頁</button>
-</div>
+<table class="data-table">
+  <tr>
+    <th>#</th>
+    <th>景點名稱</th>
+    <th>地址</th>
+    <th>電話</th>
+  </tr>
+  <tr *ngFor="let a of displayedAttractions; let i = index">
+    <td>{{ (currentPage - 1)*10 + i + 1 }}</td>
+    <td><h3>{{ a.name }}</h3></td>
+    <td><p>{{ a.address }}</p></td>
+    <td><p>{{ a.tel }}</p></td>
+  </tr>
+</table>
+<ul class="page-controls">
+  <li>目前<span>第 {{ currentPage }} 頁</span></li>
+  <li><button (click)="prevPage()" [disabled]="currentPage === 1">上一頁</button></li>
+  <li><button (click)="nextPage()" [disabled]="currentPage >= maxPage">下一頁</button></li>
+</ul>
+
