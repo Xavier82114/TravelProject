@@ -2,18 +2,26 @@
   <option *ngFor="let c of categoryList" [ngValue]="c.id">{{ c.name }}</option>
 </select>
 
+<a routerLink="/favorites">→ 我的最愛清單</a>
+
 <table class="data-table">
   <tr>
     <th>#</th>
     <th>景點名稱</th>
     <th>地址</th>
     <th>電話</th>
+    <th>收藏</th>
   </tr>
   <tr *ngFor="let a of displayedAttractions; let i = index">
     <td>{{ (currentPage - 1)*10 + i + 1 }}</td>
     <td><h3>{{ a.name }}</h3></td>
     <td><p>{{ a.address }}</p></td>
     <td><p>{{ a.tel }}</p></td>
+    <td>
+      <button (click)="toggleFavorite(a.id)">
+        {{ favoriteIds.has(a.id) ? '❤️' : '🤍' }}
+      </button>
+    </td>
   </tr>
 </table>
 <ul class="page-controls">

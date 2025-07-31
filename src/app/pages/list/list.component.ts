@@ -29,11 +29,14 @@ export class ListComponent implements OnInit {
     { id: 25, name: '無障礙旅遊推薦景點' },
     { id: 499, name: '其他' }
   ];
- 
+
+  //加入 / 移除我的最愛
+  favoriteIds: Set<number> = new Set();
 
   constructor(private listService: ListService) {}
 
   ngOnInit(): void {
+    this.loadFavorites(); 
     this.listService.getAttractions().subscribe(res => {
       this.allAttractions = res.data;
       this.filteredAttractions = res.data;
@@ -77,6 +80,22 @@ export class ListComponent implements OnInit {
     }
     this.currentPage = 1;
     this.updatePage();
+  }
+
+  loadFavorites() {
+    const stored = localStorage.getItem('favorites');
+    if (stored) {
+      this.favoriteIds = new Set(JSON.parse(stored));
+    }
+  }
+
+  toggleFavorite(id: number): void {
+    if (this.favoriteIds.has(id)) {
+      this.favoriteIds.delete(id);
+    } else {
+      this.favoriteIds.add(id);
+    }
+    localStorage.setItem('favorites', JSON.stringify(Array.from(this.favoriteIds)));
   }
 
 }

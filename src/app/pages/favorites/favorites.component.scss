@@ -1,0 +1,78 @@
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.data-table th, .data-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.data-table th {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.data-table td h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.data-table td p {
+  margin: 4px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+/* 分頁控制樣式 */
+.page-controls {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
+  gap: 12px;
+  justify-self: end;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-controls li {
+  font-size: 16px;
+}
+
+.page-controls button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.page-controls button:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .data-table th, .data-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .page-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

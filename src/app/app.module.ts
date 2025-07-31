@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './pages/list/list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent
+    ListComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<h2>我的最愛清單</h2>
+<a routerLink="/">← 回到景點總覽</a>
+
+<table class="data-table">
+  <tr>
+    <th>#</th>
+    <th>景點名稱</th>
+    <th>地址</th>
+    <th>電話</th>
+    <th>收藏</th>
+  </tr>
+  <tr *ngFor="let a of displayedAttractions; let i = index">
+    <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+    <td>{{ a.name }}</td>
+    <td>{{ a.address }}</td>
+    <td>{{ a.tel }}</td>
+    <td>
+      <button (click)="toggleFavorite(a.id)">
+        {{ favoriteIds.has(a.id) ? '❤️' : '🤍' }}
+      </button>
+    </td>
+  </tr>
+</table>
+
+<ul class="page-controls">
+  <li>目前 <span>第 {{ currentPage }} 頁</span></li>
+  <li>
+    <button (click)="prevPage()" [disabled]="currentPage === 1">上一頁</button>
+  </li>
+  <li>
+    <button (click)="nextPage()" [disabled]="currentPage >= maxPage">下一頁</button>
+  </li>
+</ul>
