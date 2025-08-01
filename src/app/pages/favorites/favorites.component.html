@@ -1,56 +1,54 @@
-<h2>我的最愛清單</h2>
-<a routerLink="/">← 回到景點總覽</a>
+<div class="header">
+  <h2>我的最愛清單</h2>
+  <a class="myfav" routerLink="/">← 回到景點總覽</a>
+</div>
 
 <table class="data-table">
-  <tr>
-    <th><input type="checkbox" [checked]="isAllSelected()" (change)="selectAll()" /></th>
-    <th>#</th>
-    <th>景點名稱</th>
-    <th>電話</th>
-    <th>收藏</th>
-    <th>編輯</th>
-  </tr>
-  <tr *ngFor="let a of displayedAttractions; let i = index">
-    <td>
+  <thead>
+    <tr>
+      <th><input type="checkbox" [checked]="isAllSelected()" (change)="selectAll()" /></th>
+      <th>#</th>
+      <th>景點名稱</th>
+      <th>電話</th>
+      <th>收藏</th>
+      <th>編輯</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let a of displayedAttractions; let i = index">
+      <td data-label="選取">
         <input type="checkbox" [checked]="selectedIds.has(a.id)" (change)="toggleSelect(a.id)" />
-    </td>
-    <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-    <td>
+      </td>
+      <td data-label="#">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+      <td data-label="景點名稱">
         <ng-container *ngIf="editingId === a.id; else nameDisplay">
-        <input [(ngModel)]="a.name" required />
-        <div *ngIf="!a.name">⚠️ 必填</div>
+          <input [(ngModel)]="a.name" required />
+          <div *ngIf="!a.name">⚠️ 必填</div>
         </ng-container>
-        <ng-template #nameDisplay>
-        {{ a.name }}
-        </ng-template>
-    </td>
-    <td>
+        <ng-template #nameDisplay>{{ a.name }}</ng-template>
+      </td>
+      <td data-label="電話">
         <ng-container *ngIf="editingId === a.id; else telDisplay">
-        <input [(ngModel)]="a.tel" (ngModelChange)="validateTel(a)" />
-        <div *ngIf="a.invalidTel">⚠️ 電話不可含中文</div>
+          <input [(ngModel)]="a.tel" (ngModelChange)="validateTel(a)" />
+          <div *ngIf="a.invalidTel">⚠️ 電話不可含中文</div>
         </ng-container>
-        <ng-template #telDisplay>
-        {{ a.tel }}
-        </ng-template>
-    </td>
-    <td>
+        <ng-template #telDisplay>{{ a.tel }}</ng-template>
+      </td>
+      <td data-label="收藏">
         <button (click)="toggleFavorite(a.id)">
-        {{ favoriteIds.has(a.id) ? '❤️' : '🤍' }}
+          {{ favoriteIds.has(a.id) ? '❤️' : '🤍' }}
         </button>
-    </td>
-    <td>
+      </td>
+      <td data-label="編輯">
         <ng-container *ngIf="editingId === a.id; else editMode">
-            <button
-                (click)="saveAttraction(a)"
-                [disabled]="!a.name || a.invalidTel">
-                💾 儲存
-            </button>
+          <button (click)="saveAttraction(a)" [disabled]="!a.name || a.invalidTel">💾 儲存</button>
         </ng-container>
         <ng-template #editMode>
-            <button (click)="editingId = a.id">✏️ 編輯</button>
+          <button (click)="editingId = a.id">✏️ 編輯</button>
         </ng-template>
-    </td>
-  </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <button (click)="removeSelected()" [disabled]="selectedIds.size === 0" class="btn btn-danger">
@@ -58,11 +56,7 @@
 </button>
 
 <ul class="page-controls">
-  <li>目前 <span>第 {{ currentPage }} 頁</span></li>
-  <li>
-    <button (click)="prevPage()" [disabled]="currentPage === 1">上一頁</button>
-  </li>
-  <li>
-    <button (click)="nextPage()" [disabled]="currentPage >= maxPage">下一頁</button>
-  </li>
+  <li><span>目前第 <b>{{ currentPage }}</b> 頁</span></li>
+  <li><button (click)="prevPage()" [disabled]="currentPage === 1">上一頁</button></li>
+  <li><button (click)="nextPage()" [disabled]="currentPage >= maxPage">下一頁</button></li>
 </ul>
